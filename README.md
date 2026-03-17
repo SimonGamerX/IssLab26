@@ -14,6 +14,6 @@ Laboratorio di <b>Ingegneria dei Sistemi Software</b> 2025-2026 di Simone Pipola
 <i>Distribuzione</i>: File Jar
 
 ### Sistema ConwayLife con output in pagina HTML
-* [ConwayLife Sprint3](conway26Sprint3)
-   <b> Evoluzione </b> sistema in locale usando una pagina HTML come dispositivo di output e Javalin come input.
+* [ConwayLife Sprint3](conway26Sprint3) <br>
+   <b> Evoluzione </b> sistema in locale usando una pagina HTML come dispositivo di output e Javalin come input. <br>
    <i>Distribuzione</i>: Docker YAML
