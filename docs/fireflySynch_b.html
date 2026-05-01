@@ -19,7 +19,8 @@
 	<div class="body">
 
 		<h2>Introduction</h2>
-		<p><b>Goal</b>: Costruire il simulatore di un sistema costituito da 3 lucciole. Inizialemente, le lucciole lampeggiamo ciascuna con una
+		<p><b>Goal</b>: Costruire il simulatore di un sistema costituito da 3 lucciole. Inizialemente, le lucciole
+			lampeggiamo ciascuna con una
 			frequenza (costante) propria. </a>.
 		</p>
 
@@ -29,7 +30,8 @@
 			<b>R1:</b> Dopo 10 secondi le lucciole devono lampeggiare in modo sincronizzato
 		</p>
 		<p>
-			<b>R2:</b> Il sistema è dotato anche di un sonar . Quando il sonar rileva un ostacolo a una distanza minore di una distanza
+			<b>R2:</b> Il sistema è dotato anche di un sonar . Quando il sonar rileva un ostacolo a una distanza minore
+			di una distanza
 			prefissata DMIN, le lucciole devoono lampeggiare in modo sincronizzato. Quando la distanza dell’ostacolo
 			(ri)supera DMIN, le lucciole tornano a lampeggiare in modo random.
 		</p>
@@ -41,47 +43,47 @@
 			Esse verranno modellate come QActor, data la loro natura allo stesso tempo reattiva ed attiva.
 			In secondo luogo, è possibile ricorrere ad un'entità che si occuperò della visualizzazione a schermo
 			dello stato delle enità lucciole. Essa verrà modellato dal QActor griddisplay.
-		</p>	
+		</p>
 
 		<p>
 			System fireflysynch
 
 			QActor creator context ctxfirefly{
-				State s0 initial{    
-					delay 500 
-					create firefly _"1"
-					create firefly _"2"
-					create firefly _"3"
-				} 
-			}   
-
-			QActor firefly context ctxfirefly dynamicOnly{      
-				[#   
-				var X = 0
-				var Y = 0
-				var Timer = 500L
-				var Switch = 100000L
-				
-				fun setCellCoords()  {
-						val coordY = name.replace("firefly_","")    
-						Y  = coordY.toInt()
-					}
-				#] 
-				State s0 initial{
-					[# setCellCoords() #]
-					[# Timer = java.util.Random().nextLong(1000L, 2000L) #]  
-					println("$name | X=$X Y=$Y Timer=$Timer") color magenta	
-				}
-				Goto flash
-				State flash{
-					forward griddisplay -m  cellstate : cellstate($X, $Y, 1) 				
-					delay 500	
-					forward griddisplay -m  cellstate : cellstate($X, $Y, 0) 				
-				}
-				Transition t0 
-					whenTimeVar Timer -> flash 
+			State s0 initial{
+			delay 500
+			create firefly _"1"
+			create firefly _"2"
+			create firefly _"3"
 			}
-		</p>	
+			}
+
+			QActor firefly context ctxfirefly dynamicOnly{
+			[#
+			var X = 0
+			var Y = 0
+			var Timer = 500L
+			var Switch = 100000L
+
+			fun setCellCoords() {
+			val coordY = name.replace("firefly_","")
+			Y = coordY.toInt()
+			}
+			#]
+			State s0 initial{
+			[# setCellCoords() #]
+			[# Timer = java.util.Random().nextLong(1000L, 2000L) #]
+			println("$name | X=$X Y=$Y Timer=$Timer") color magenta
+			}
+			Goto flash
+			State flash{
+			forward griddisplay -m cellstate : cellstate($X, $Y, 1)
+			delay 500
+			forward griddisplay -m cellstate : cellstate($X, $Y, 0)
+			}
+			Transition t0
+			whenTimeVar Timer -> flash
+			}
+		</p>
 
 		<h2>Problem analysis</h2>
 
@@ -105,12 +107,11 @@
 	</div>
 
 	<h5>
-		<img src="./img/pic.jpeg" width="15%" height="15%">
-		By Cesare Tomasi
+		<img src="./img/mio.jpg" width="15%" height="15%">
 		<ul>
-			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
-			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
-					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<li><a href="mailto:simone.pipola@studio.unibo.it">e-mail: simone.pipola@studio.unibo.it</a></li>
+			<li><a href="https://github.com/SimonGamerX/IssLab26">git repo:
+					https://github.com/SimonGamerX/IssLab26</a></li>
 			<ul>
 	</h5>
 </body>
