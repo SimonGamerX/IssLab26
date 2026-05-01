@@ -4,4 +4,4 @@ Laboratorio di <b>Ingegneria dei Sistemi Software</b> 2025-2026 di Simone Pipola
 
 [Testo di Riferimento](https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf)
 
-[Indice di riferimento](https://github.com/SimonGamerX/IssLab26/blob/main/docs/index.html)
+[Indice di riferimento](https://SimonGamerX.github.io/IssLab26/)
