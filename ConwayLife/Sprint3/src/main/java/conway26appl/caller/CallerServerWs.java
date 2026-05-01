@@ -12,7 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.WebSocket;
  
 /*
- * PREMESSA: lanciare SistemaSJavalApplMsgsQueued
+ * PREMESSA: lanciare MainConwayGui
  *  
  * Componente che usa un WebSocketClient
  * per inviare messaggi su una WebSocket
@@ -60,7 +60,7 @@ public class CallerServerWs  {
         WebSocket webSocket = client.newWebSocketBuilder()
             .buildAsync(URI.create("ws://localhost:8080/eval"), new WebSocketListener(latch))
             .join();
-
+        
         // Invio di un messaggio al server
         // webSocket.sendText(setctrl.toString(), true);
         
@@ -139,6 +139,9 @@ public class CallerServerWs  {
             latch.countDown();
         }
     }
+
+    
+  
     
     public static void main(String[] args) throws Exception {
     	System.out.println("Java.version="+ System.getProperty("java.version"));

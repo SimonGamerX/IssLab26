@@ -7,20 +7,21 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import io.javalin.websocket.WsMessageContext;
+import main.java.conway.devices.ConwayWebOutDev;
+import main.java.conway.domain.GameController;
+import main.java.conway.domain.IOutDev;
+import main.java.conway.domain.Life;
+import main.java.conway.domain.LifeController;
 import unibo.basicomm23.utils.CommUtils;
 import unibo.basicomm23.interfaces.IApplMessage;
 import unibo.basicomm23.msg.ApplMessage;
-import conway.domain.GameController;
-import conway.domain.Life;
-import conway.domain.LifeController;
-import conway.domain.LifeInterface;
-import conway.domain.OutDev;
 
 public class IoJavalin {
-
-	private OutDev wsOutDev;
-	private GameController controller;
-	private LifeInterface game;
+	
+	private IOutDev devOut;
+		
+	private WsMessageContext pageCtx ;
 	public IoJavalin() {
         var app = Javalin.create(config -> {
 			config.staticFiles.add(staticFiles -> {
@@ -31,11 +32,7 @@ public class IoJavalin {
 				 */
 		    });
 		}).start(8080);
-
-        wsOutDev = new OutDev();
-        game = Life.CreateLife(20, 20);
-        controller = new LifeController(game, wsOutDev);
-
+ 
 /*
  * --------------------------------------------
  * Parte HTTP        
@@ -122,51 +119,56 @@ public class IoJavalin {
         app.ws("/eval", ws -> {
             ws.onConnect(ctx -> CommUtils.outgreen("IoJavalin | Client connected eval"));
             ws.onMessage(ctx -> {
-                String message = ctx.message();
+                String message = ctx.message();     
                 CommUtils.outblue("IoJavalin |  eval receives:" + message );
                 try {
-                    IApplMessage m = new ApplMessage(message);
-                    String content = m.msgContent();
-                    CommUtils.outblue("IoJavalin |  eval content:" + content );
-                    if( content.equals("ready")) {
-                        wsOutDev.setCtx(ctx);
-                        ctx.send("ID:" + ctx.hashCode());
-                        wsOutDev.displayGrid(game.getGrid());
-                    } else if( content.equals("start")) {
-                        controller.onStart();
-                    } else if( content.equals("stop")) {
-                        controller.onStop();
-                    } else if( content.equals("clear")) {
-                        controller.onClear();
-                    } else if( content.equals("exit")) {
-                        controller.onStop();
-                    } else if( content.startsWith("cell(")) {
-                        String inner = content.replace("cell(","").replace(")","");
-                        String[] parts = inner.split(",");
-                        if( parts.length == 2 ) {
-                            // Click dalla pagina: toggle cell
-                            controller.switchCellState(
-                                Integer.parseInt(parts[0].trim()),
-                                Integer.parseInt(parts[1].trim()));
-                        } else if( parts.length == 3 ) {
-                            wsOutDev.display(content);
+                	IApplMessage m = new ApplMessage(message);
+                    CommUtils.outblue("IoJavalin |  eval:" + m.msgContent() );
+                    if (m.msgContent().equals("ready")) { 
+                    	pageCtx = ctx;  //memorizzo connession pagina
+                    } else if (m.msgContent().contains("cell(")) { 
+                    	//Funziona se arriva da CallerServerWs es. cell(5,6,1)
+                    	pageCtx.send( m.msgContent()); 
+                    	if (((ConwayWebOutDev) devOut).getController() != null) {
+                            // formato messaggio: cell(y, x, state)
+                            // es: cell(5,6,1)  →  col=5, row=6
+                            String inner = m.msgContent()
+                                .replace("cell(", "")
+                                .replace(")", "");
+                            String[] parts = inner.split(",");
+                            int col = Integer.parseInt(parts[0].trim());
+                            int row = Integer.parseInt(parts[1].trim());
+                            // parts[2] è lo stato — switchCellState lo togola internamente
+                            ((ConwayWebOutDev) devOut).getController().switchCellState(row, col);
                         }
-                    } else {
-                        ctx.send(content);
-                    }
+                    } else if (m.msgContent().contains("start")) {
+                    	((ConwayWebOutDev) devOut).getController().onStart();
+	                } else if (m.msgContent().contains("clear")) {
+	                	((ConwayWebOutDev) devOut).getController().onClear();
+	                } else if (m.msgContent().contains("stop")) {
+		            	((ConwayWebOutDev) devOut).getController().onStop();
+		            } else ctx.send(m.msgContent());
                 }catch(Exception e) {
-                    CommUtils.outred("IoJavalin |  error:" + e.getMessage());
-                }
+                	CommUtils.outred("IoJavalin |  error:" + e.getMessage());
+                }               
             });
-        });
+        });        
+	}
+ 
+	public void sendToPage(String msg) {
+	    if (pageCtx != null) {
+	        pageCtx.send(msg);
+	    } else {
+	        CommUtils.outred("IoJavalin | sendToPage: nessun client connesso");
+	    }
 	}
 	
- 
-	
-
+	public void setOutDev(IOutDev devOut) {
+	    this.devOut = devOut;
+	}
 	
 	public static void main(String[] args) {
-		var resource = IoJavalin.class.getResource("/pages");
+		var resource = IoJavalin.class.getResource("/page");
 		CommUtils.outgreen("DEBUG: La cartella /page si trova in: " + resource);
 		new IoJavalin();
 	}
