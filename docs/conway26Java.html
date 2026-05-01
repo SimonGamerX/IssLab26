@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<!--
+    <script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+
+</head>
+<title>Sprint1: conway26Java</title>
+
+<body>
+	<div id="top">
+		<h1>ConwayLife Sprint1</h1>
+	</div>
+
+	<div class="body">
+
+		<h2>Introduction</h2>
+		<p><b>Goal</b>: Realizzazione in Java del
+			<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI
+				CONWAY</a>.
+		</p>
+
+		<h2>Requirements</h2>
+
+		<!-- <div class="remark"> -->
+		<p>
+			<b>R1:</b> Realizzare una versione in Java del gioco Life di Conway, come gioco zero-player.
+			Il gioco consiste nell’introdurre una Griglia di Celle il cui stato (cella ‘viva’ o cella ‘morta’) evolve
+			come stabilito dallle regole di ConwayLife
+		</p>
+		<p>
+			<b>R2:</b> L’utente umano deve poter:
+		<ul>
+			<li>specificare la configurazione iniziale della griglia del gioco</li>
+			<li>vedere l’evoluzione del gioco in forma opportuna
+				(si veda <a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#section.6.3'>Problema
+					della vista del gioco</a> )</li>
+			<li>fermare e far ripartire l’evoluzione del gioco</li>
+			<li>pulire (a gioco fermo) la configurazione della griglia del gioco</li>
+		</ul>
+		</p>
+
+		<h2>Requirement analysis</h2>
+
+		<p>
+			Dopo aver parlato col committente, formalizzo i seguenti modelli di Cell (entità unitaria che può essere
+			viva o morta), Grid (entità bidimensionale composta da celle) e Life (descrizione formale regole
+			del gioco):
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/ICell.java">ICell</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/IGrid.java">IGrid</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/LifeInterface.java">LifeInterface</a>
+			</li>
+		</ul>
+		</p>
+
+		<h2>Problem analysis</h2>
+
+		<img src="./img/architettura_sistema_v1.png">
+
+		<h2>Test plans</h2>
+
+		<p>
+			Necessari per esprimere tutti quei requisiti relativi alle entità modellate, ma che le sole interfacce non
+			sono in grado di comunicare autonomamente:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/test/CellTest.java">CellTest</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/test/GridTest.java">GridTest</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/test/LifeTest.java">LifeTest</a>
+			</li>
+		</ul>
+		</p>
+
+		<h2>Project</h2>
+
+		<p>
+			Implementazioni (sottoforma di classi) in codice Java delle interfacce in precedenza definite:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Cell.java">Cell</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Grid.java">Grid</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/Life.java">Life</a>
+			</li>
+		</ul>
+		</p>
+
+		<h2>Testing</h2>
+
+		<p></p>
+
+		<h2>Deployment</h2>
+
+		<p></p>
+
+		<h2>Maintenance</h2>
+
+		<p></p>
+
+		<br /><br />
+	</div>
+
+	<h5>
+		<img src="./img/pic.jpeg" width="15%" height="15%">
+		By Cesare Tomasi
+		<ul>
+			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<ul>
+	</h5>
+</body>
+
+</html>

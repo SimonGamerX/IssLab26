@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+	<!--
+    <script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+
+</head>
+<title>Sprint3: conway26GuiHtml</title>
+
+<body>
+	<div id="top">
+		<h1>ConwayLife Sprint3</h1>
+	</div>
+
+	<div class="body">
+
+		<h2>Introduction</h2>
+		<p><b>Goal</b>: Realizzazione in Java del
+			<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.10'>GAME OF LIFE DI
+				CONWAY</a>.
+		</p>
+
+		<h2>Requirements</h2>
+
+		<p>
+			Il committente fissa i seguenti requisiti:
+		<ol>
+			<li>dotare il gioco Life. di una pagina HTML come dispositivo di I/O</li>
+			<li>la pagina deve costituire un componente esterno alla applicazione secondo la architettura riportata in
+				IoJavalin esterno alla applicazione</li>
+			<li>il gestore del gioco sarà l’utente che ha aperto per primo (owner) una pagina HTML collegata al gioco.
+				In altre parole, solo la pagina dell’owner avrà pulsanti di comando START/STOP/CLEAN/EXIT attivi</li>
+			<li>la pagina HTML deve essere aggiornata in modo automatico man mano il gioco procede</li>
+			<li>un utente non owner che si collega mentre il gioco è in corso, dovrebbe vedere lo stato attuale della
+				griglia in modo corretto</li>
+			<li>opzionalmente: la pagina HTML deve indicare se il gioco continua anche nel caso di griglia vuota o di
+				configurazione stabile</li>
+			<li>il deployment del gioco deve avvenire mediante Docker.</li>
+		</ol>
+		</p>
+
+		<h2>Requirement analysis</h2>
+
+		<p>
+			Il dominio dell'applicazione è già stato definito e realizzato nello <a
+				href="https://github.com/Tomassone/IngegneriaSistemiSoftware/tree/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain">Sprint1</a>.
+		</p>
+
+		<h2>Problem analysis</h2>
+
+		<p>
+			Come primo passo, si definirà l'architettura del sistema. In aggiunta ai componenti mutuati dallo Sprint1,
+			verra anche realizzata OutInWs (implementazione di <a
+				href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/ConwayLife/Sprint1/conway26Java/src/main/java/conway/domain/IOutDev.java">IOutDev</a>
+			per la comunicazione con la pagina <a
+				href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/src/main/resources/page/ConwayInOutPage.html">
+				ConwayInOutPage</a> visualizzata dal browser.
+		</p>
+		<img src="./img/architettura_sistema_v3.png"></img>
+		<p>
+			In secondo luogo, verrà trattato come i componenti del sistema interagiranno tra di loro. A tal proposito
+			l'interfaccia <a href="https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#subsection.9.2.1">
+				IAppMessage</a> definirà la struttura dei messaggi che le due componenti useranno per comunicare.
+		</p>
+
+		<h2>Test plans</h2>
+
+		<p></p>
+
+		<h2>Project</h2>
+
+		<p>Riporto qui l'implementazione realizzata dell'interfaccia IOutDev: <a
+				href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/src/main/resources/main/java/conway/devices/ConwayWebOutDev.java">ConwayWebOutDev</a>.
+		</p>
+
+		<h2>Testing</h2>
+
+		<p></p>
+
+		<h2>Deployment</h2>
+
+		<p>
+			Avviene tramite piattaforma Docker grazie ai seguenti file:
+		<ul>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/Dockerfile">Dockerfile</a>
+			</li>
+			<li><a
+					href="https://github.com/Tomassone/IngegneriaSistemiSoftware/blob/main/conway26GuiHtml/conway26GuiHtml.yaml">conway26GuiHtml.yaml</a>
+			</li>
+		</ul>
+		</p>
+
+		<h2>Maintenance</h2>
+
+		<p></p>
+
+		<br /><br />
+	</div>
+
+	<h5>
+		<img src="./img/pic.jpeg" width="15%" height="15%">
+		By Cesare Tomasi
+		<ul>
+			<li><a href="mailto:cesare.tomasi@studio.unibo.it">e-mail: cesare.tomasi@studio.unibo.it</a></li>
+			<li><a href="https://github.com/Tomassone/IngegneriaSistemiSoftware">git repo:
+					https://github.com/Tomassone/IngegneriaSistemiSoftware</a></li>
+			<ul>
+	</h5>
+</body>
+
+</html>

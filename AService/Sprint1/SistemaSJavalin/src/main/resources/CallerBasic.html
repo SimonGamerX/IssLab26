@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CallerBasic</title>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+
+<body>
+	<h1>Valutazione: sin(x) + cos(&radic;3 * x)</h1>
+	<h2>Digita x:</h2>
+	<div>
+		<input type="number" id="InputValue" value="0.0">
+		<p>
+			<button onclick="callHTTPGet(document.getElementById('InputValue').value)">Ottieni risultato (GET)</button>
+			<button onclick="callHTTPPost(document.getElementById('InputValue').value)">Ottieni risultato
+				(POST)</button>
+			<button onclick="callWS(document.getElementById('InputValue').value)">Ottieni risultato (WS)</button>
+		</p>
+	</div>
+
+	<div id="ResultValue"></div>
+	<script src="CallerBasic.js"></script>
+</body>
+
+</html>
